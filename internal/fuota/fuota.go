@@ -23,6 +23,7 @@ import (
 	"github.com/chirpstack/chirpstack-fuota-server/v4/internal/eventhandler"
 	"github.com/chirpstack/chirpstack-fuota-server/v4/internal/storage"
 	"github.com/chirpstack/chirpstack/api/go/v4/api"
+	"github.com/chirpstack/chirpstack/api/go/v4/common"
 	"github.com/chirpstack/chirpstack/api/go/v4/integration"
 )
 
@@ -139,6 +140,9 @@ type DeploymentOptions struct {
 	// RequestFragmentationSessionStatus defines if and when the frag-session
 	// status must be requested.
 	RequestFragmentationSessionStatus FragmentationSessionStatusRequestType
+
+	// Region.
+	Region string
 }
 
 // DeviceOptions holds the device options.
@@ -730,6 +734,7 @@ func (d *Deployment) stepCreateMulticastGroup(ctx context.Context) error {
 		Frequency:            d.opts.MulticastFrequency,
 		ClassBPingSlotPeriod: uint32(1 << int(5+d.opts.MulticastPingSlotPeriodicity)), // note: period = 2 ^ (5 + periodicity)
 		ApplicationId:        d.opts.ApplicationID,
+		Region:               common.Region(common.Region_value[d.opts.Region]),
 	}
 
 	resp, err := as.MulticastGroupClient().Create(ctx, &api.CreateMulticastGroupRequest{

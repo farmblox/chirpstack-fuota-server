@@ -41,6 +41,7 @@ func (a *FUOTAServerAPI) CreateDeployment(ctx context.Context, req *fapi.CreateD
 		BlockAckDelay:                     uint8(req.GetDeployment().FragmentationBlockAckDelay),
 		UnicastAttemptCount:               int(req.GetDeployment().UnicastAttemptCount),
 		RequestFragmentationSessionStatus: fuota.FragmentationSessionStatusRequestType(req.GetDeployment().RequestFragmentationSessionStatus.String()),
+		Region:                            req.GetDeployment().Region,
 	}
 
 	for _, d := range req.GetDeployment().Devices {

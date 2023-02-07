@@ -122,6 +122,9 @@ message Deployment {
 
     // Request fragmentation session status.
     RequestFragmentationSessionStatus request_fragmentation_session_status = 18;
+
+    // Region.
+    string region = 19;
 }
 
 
